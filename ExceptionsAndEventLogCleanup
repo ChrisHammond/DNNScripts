@@ -1,0 +1,31 @@
+/* 
+  Created By: Chris Hammond (http://www.christoc.com)
+  Description:
+  This script is useful if you're trying to track down the status of your EventLog and Exceptions tables. 
+  Read these two blog posts for further details
+    http://www.dnnsoftware.com/community-blog/cid/155419/dnn-tip-monitoring-the-exceptions-and-eventlog-tables
+    http://www.dnnsoftware.com/community-blog/cid/155420/dnn-tip-pruning-the-eventlog-with-eventlogconfig
+    
+  Usage:
+  If you running this in SQL Server, instead of via the SQL Console in DNN, you can replace the {databaseOwner}{objectQualifier} tokens.
+  {databaseOwner} - If you're using DBO simply replace this with "DBO." (without the quotes).
+  {objectQualifier} - If you're not using an object qualifier, replace this with an empty string.
+ 
+*/
+
+/* get a count of records in the Exceptions table */
+select count(1) from {databaseOwner}{objectQualifier}Exceptions with (nolock)
+
+
+/* get a count of records in the EventLog table */
+select count(1) from {databaseOwner}{objectQualifier}EventLog with (nolock)
+
+
+/* uncomment below to clear out the exceptions table */
+--truncate table {databaseOwner}{objectQualifier}Exceptions
+
+
+/* uncomment below to set all EventLog configurations to only store the most recent 10 events */
+--update {databaseOwner}{objectQualifier}Eventlogconfig set keepmostrecent = 10
+
+
