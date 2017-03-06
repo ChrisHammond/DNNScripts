@@ -1,0 +1,34 @@
+/* 
+  Created By: Chris Hammond (http://www.christoc.com)
+  Description:
+  You can run this script to see where a module is in use. This is useful if you are trying to figure out which pages and portals 
+  in a DNN instance are using a specific module.
+  
+  Usage: Change the @moduleName parameter to provide the name of the module you are looking for.
+  
+  Results: This script will return the TabID, PortalID, Tab Name and Portal Name for any pages that are using a module.
+*/
+
+declare @moduleName nvarchar(255) ='%REPLACE ME%'
+
+;with DM as (
+select * from DesktopModules  where friendlyname like @modulename)
+,
+md as (
+
+select * from moduledefinitions where desktopmoduleid in (select desktopmoduleid from dm))
+,
+m as (
+select * from modules where moduledefid in (select moduledefid from md))
+
+,tm as (
+
+select * From tabmodules where moduleid in (select moduleid from m)
+)
+
+
+, t as (
+select * from tabs where tabid in (select tabid from tm))
+
+select TabId,t.PortalId,TabName,p.PortalName From t join portallocalization p on t.portalid=p.portalid
+
