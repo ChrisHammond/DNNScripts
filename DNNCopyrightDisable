@@ -1,0 +1,13 @@
+/* 
+  Created By: Chris Hammond (http://www.christoc.com)
+  Description:
+  This script disables the HTML copyright statement in your DNN install. In DNN9 there is no way to do this without touching the database.
+
+Usage:
+  If you running this in SQL Server, instead of via the SQL Console in DNN, you can replace the {databaseOwner}{objectQualifier} tokens.
+  {databaseOwner} - If you're using DBO simply replace this with "DBO." (without the quotes).
+  {objectQualifier} - If you're not using an object qualifier, replace this with an empty string.
+ 
+*/
+
+Update {databaseOwner}{objectQualifier}HostSettings set settingvalue ='N' where settingname = 'Copyright'
