@@ -14,11 +14,11 @@
 */
 
 /* get a count of records in the Exceptions table */
-select count(1) from {databaseOwner}{objectQualifier}Exceptions with (nolock)
+select count(1) from {databaseOwner}{objectQualifier}Exceptions 
 
 
 /* get a count of records in the EventLog table */
-select count(1) from {databaseOwner}{objectQualifier}EventLog with (nolock)
+select count(1) from {databaseOwner}{objectQualifier}EventLog 
 
 
 /* uncomment below to clear out the exceptions table */
